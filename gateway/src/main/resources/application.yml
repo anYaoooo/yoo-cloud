@@ -1,0 +1,79 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: yoo-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        username: nacos
+        password: nacos
+        namespace: public
+
+    #Sentinel配置
+    sentinel:
+      web-context-unify: false
+      transport:
+        dashboard: localhost:8087
+      # 懒加载Sentinel Dashboard菜单
+      eager: false
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowCredentials: true
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      #如果启用nacos或者数据库配置请删除一下配置
+      routes:
+#        - id: cmsc-demo
+#          uri: lb://cmsc-demo
+#          predicates:
+#            - Path=/mock/**,/demo/**,/bigscreen/template1/**,/bigscreen/template2/**
+        - id: cmsc-system
+          uri: lb://cmsc-system
+          predicates:
+            - Path=/sys/**,/eoa/**,/v1/**,/joa/**,/online/**,/bigscreen/**,/jmreport/**,/desform/**,/act/**,/plug-in/**,/generic/**
+        - id: cmsc-shoppingmall
+          uri: lb:ws://cmsc-shoppingmall
+          predicates:
+            - Path=/websocket/**,/eoaSocket/**,/newsWebsocket/**,/shoppingmall/**
+        - id: cmsc-demo-websocket
+          uri: lb:ws://cmsc-demo
+          predicates:
+            - Path=/vxeSocket/**
+        - id: cmsc-usercenter
+          uri: lb://cmsc-usercenter
+          predicates:
+            - Path=/usercenter/**,/v2/**
+      # 全局熔断降级配置
+      default-filters:
+        - name: Hystrix
+          args:
+            name: default
+            #转发地址
+            fallbackUri: 'forward:/fallback'
+        - name: Retry
+          args:
+            #重试次数，默认值是 3 次
+            retries: 3
+            #HTTP 的状态返回码
+            statuses: BAD_GATEWAY,BAD_REQUEST
+            #指定哪些方法的请求需要进行重试逻辑，默认值是 GET 方法
+            methods: GET,POST
+# hystrix 信号量隔离，3秒后自动超时
+hystrix:
+  enabled: true
+  shareSecurityContext: true
+  command:
+    default:
+      execution:
+        isolation:
+          strategy: SEMAPHORE
+          thread:
+            timeoutInMilliseconds: 3000
