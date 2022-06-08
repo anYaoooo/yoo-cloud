@@ -180,6 +180,17 @@ public class RedisService
     }
 
     /**
+     * 普通缓存获取
+     *
+     * @param key 键
+     * @return 值
+     */
+    public Object get(String key) {
+        return key == null ? null : redisTemplate.opsForValue().get(key);
+    }
+
+
+    /**
      * 缓存Map
      *
      * @param key

@@ -9,15 +9,14 @@ import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.google.common.collect.Lists;
+import com.yoo.common.redis.service.RedisService;
 import com.yoo.core.constant.CacheConstants;
 import com.yoo.core.exception.base.BaseMap;
-import com.yoo.gateway.RedisUtil;
 import com.yoo.core.utils.StringUtils;
 import com.yoo.gateway.config.GatewayRoutersConfiguration;
 import com.yoo.gateway.config.RouterDataType;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
@@ -30,6 +29,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -57,14 +57,14 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
 
     private ConfigService configService;
 
-    private RedisUtil redisUtil;
+    private RedisService redisService;
 
 
-    public DynamicRouteLoader(InMemoryRouteDefinitionRepository repository, DynamicRouteService dynamicRouteService, RedisUtil redisUtil) {
+    public DynamicRouteLoader(InMemoryRouteDefinitionRepository repository, DynamicRouteService dynamicRouteService, RedisService redisService) {
 
         this.repository = repository;
         this.dynamicRouteService = dynamicRouteService;
-        this.redisUtil = redisUtil;
+        this.redisService = redisService;
     }
 
     @PostConstruct
@@ -137,7 +137,7 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
         if (configService == null) {
             log.warn("initConfigService fail");
         }
-        Object configInfo = redisUtil.get(CacheConstants.GATEWAY_ROUTES);
+        Object configInfo = redisService.get(CacheConstants.GATEWAY_ROUTES);
         if (ObjectUtil.isNotEmpty(configInfo)) {
             log.info("获取网关当前配置:\r\n{}", configInfo);
             JSONArray array = JSON.parseArray(configInfo.toString());

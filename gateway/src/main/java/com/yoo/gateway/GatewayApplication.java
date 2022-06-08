@@ -35,4 +35,5 @@ public class GatewayApplication implements CommandLineRunner {
     public void run(String... strings) {
         dynamicRouteLoader.refresh(null);
     }
+
 }

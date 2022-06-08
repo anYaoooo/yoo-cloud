@@ -26,7 +26,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
  */
 @Slf4j
 @Configuration
-@Component
 public class GatewayRoutersConfiguration {
 
     public static final long DEFAULT_TIMEOUT = 30000;
@@ -68,14 +67,14 @@ public class GatewayRoutersConfiguration {
         ROUTE_GROUP = routeGroup;
     }
 
-    @Value("${jeecg.route.config.data-type:#{null}}")
+    @Value("${jeecg.route.config.data-type}")
     public void setDataType(String dataType) { DATA_TYPE = dataType; }
 
-    @Value("${spring.cloud.nacos.config.username:#{null}}")
+    @Value("${spring.cloud.nacos.discovery.username}")
     public void setUsername(String username) {
         USERNAME = username;
     }
-    @Value("${spring.cloud.nacos.config.password:#{null}}")
+    @Value("${spring.cloud.nacos.discovery.password}")
     public void setPassword(String password) {
         PASSWORD = password;
     }
