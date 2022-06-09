@@ -11,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import javax.annotation.Resource;
 
 /**
- * @author jeecg
+ * @author anYoooo
  */
 @EnableFeignClients
 @EnableDiscoveryClient

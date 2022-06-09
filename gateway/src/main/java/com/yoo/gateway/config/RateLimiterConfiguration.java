@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Primary;
 import reactor.core.publisher.Mono;
 
 /**
- * @author scott
- * @date 2020/5/26
+ * @author anYoooo
+ * @date 2022/6/8
  * 路由限流配置
  */
 @Configuration
