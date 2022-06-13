@@ -10,7 +10,7 @@ spring:
       config:
         file-extension: yml
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 42.192.55.166:8848
         username: nacos
         password: nacos
         namespace: public
