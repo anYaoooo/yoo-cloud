@@ -1,0 +1,32 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: yoo-rabbitmq
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+      discovery:
+        server-addr: 42.192.55.166:8848
+        username: nacos
+        password: nacos
+        namespace: public
+  rabbitmq:
+    addresses: 42.192.55.166:5672
+    username: guest
+    password: guest
+    virtual-host: /
+    #    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+  datasource:
+    url: jdbc:mysql://42.192.55.166:3306/yoo-cloud?Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource

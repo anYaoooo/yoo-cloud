@@ -40,12 +40,13 @@
         <tobato.version>1.27.2</tobato.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
-        <druid.version>1.2.8</druid.version>
+        <amqp.version>2.0.4.RELEASE</amqp.version>
         <dynamic-ds.version>3.4.1</dynamic-ds.version>
         <commons.io.version>2.11.0</commons.io.version>
         <commons.fileupload.version>1.4</commons.fileupload.version>
         <fastjson.version>1.2.78</fastjson.version>
         <jjwt.version>0.9.1</jjwt.version>
+        <druid.version>1.0.29</druid.version>
         <minio.version>8.2.2</minio.version>
         <poi.version>4.1.2</poi.version>
         <common-pool.version>2.10.0</common-pool.version>
@@ -192,6 +193,21 @@
                 <artifactId>commons-pool2</artifactId>
                 <version>${common-pool.version}</version>
             </dependency>
+
+            <!-- 数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!-- rabbitmq支持 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

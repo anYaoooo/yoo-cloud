@@ -16,9 +16,9 @@ spring:
         namespace: public
 
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/xxl_job?Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://42.192.55.166:3306/yoo-cloud?Unicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
 jeecg:
